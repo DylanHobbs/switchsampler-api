@@ -32,16 +32,20 @@ Route::middleware('throttle:5,3')->post('/check', function(Request $request) {
     return response()->json(['message' => 'Code is valid']);
 });
 
-Route::middleware('throttle:2,60')->post('/create', function(Request $request) {
+Route::middleware('throttle:10,60')->post('/create', function(Request $request) {
     $validated_data = $request->validate([
        'display_name' => 'required',
         'country' => 'required',
         'date_recieved' => 'required',
         'shipping_cost' => 'required',
         'currency' => 'required',
-        'note' => 'required',
+        'note' => 'nullable|string',
         'code' => 'required|exists:keyboards,code'
     ]);
+
+    if(! isset($validated_data['note'])){
+        $validated_data['note'] = ' ';
+    }
 
     $keyboard = Keyboard::where('code', $validated_data['code'])->first();
 
