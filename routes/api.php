@@ -32,7 +32,7 @@ Route::middleware('throttle:5,3')->post('/check', function(Request $request) {
     return response()->json(['message' => 'Code is valid']);
 });
 
-Route::middleware('throttle:10,60')->post('/create', function(Request $request) {
+Route::middleware('throttle:10,3')->post('/create', function(Request $request) {
     $validated_data = $request->validate([
        'display_name' => 'required',
         'country' => 'required',
