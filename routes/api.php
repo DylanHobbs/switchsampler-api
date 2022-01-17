@@ -21,7 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/keyboards', function(Request $request) {
-   return Keyboard::select(['id', 'name'])->with('entries')->get();
+   return Keyboard::select(['id', 'name', 'layout'])->with('entries')->get();
 });
 
 Route::middleware('throttle:5,3')->post('/check', function(Request $request) {
